@@ -25,12 +25,12 @@ namespace DynamicAPI.Persitence.Repositories
         {
             List<User> users = new List<User>
             {
-                new User { Id = 1, FirstName = "user1", LastName = "user", PasswordSalt = "dsadasdsad", PasswordHash = "dsadasdsad", CreatedAt = DateTime.Now },
-                new User { Id = 2, FirstName = "user2", LastName = "user", PasswordSalt = "dsadasdsad", PasswordHash = "dsadasdsad", CreatedAt = DateTime.Now },
-                new User { Id = 3, FirstName = "use3", LastName = "user", PasswordSalt = "dsadasdsad", PasswordHash = "dsadasdsad", CreatedAt = DateTime.Now },
-                new User { Id = 4, FirstName = "user4", LastName = "use2", PasswordSalt = "dsadasdsad", PasswordHash = "dsadasdsad", CreatedAt = DateTime.Now },
-                new User { Id = 5, FirstName = "user5", LastName = "use3", PasswordSalt = "dsadasdsad", PasswordHash = "dsadasdsad", CreatedAt = DateTime.Now },
-                new User { Id = 6, FirstName = "user6", LastName = "user", PasswordSalt = "dsadasdsad", PasswordHash = "dsadasdsad", CreatedAt = DateTime.Now },
+                new User { Id = 1, FirstName = "user1", LastName = "user", PasswordSalt = "dsadasdsad", PasswordHash = "ab", CreatedAt = DateTime.Now },
+                new User { Id = 2, FirstName = "user2", LastName = "user", PasswordSalt = "dsadasdsad", PasswordHash = "abc", CreatedAt = DateTime.Now },
+                new User { Id = 3, FirstName = "use3", LastName = "user", PasswordSalt = "dsadasdsad", PasswordHash = "abcd", CreatedAt = DateTime.Now },
+                new User { Id = 4, FirstName = "user4", LastName = "use2", PasswordSalt = "dsadasdsad", PasswordHash = "abcde", CreatedAt = DateTime.Now },
+                new User { Id = 5, FirstName = "user5", LastName = "use3", PasswordSalt = "dsadasdsad", PasswordHash = "abcdef", CreatedAt = DateTime.Now },
+                new User { Id = 6, FirstName = "user6", LastName = "user", PasswordSalt = "dsadasdsad", PasswordHash = "abcdefg", CreatedAt = DateTime.Now },
             };
 
             return users;

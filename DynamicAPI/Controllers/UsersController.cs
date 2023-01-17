@@ -17,14 +17,14 @@ namespace DynamicAPI.Controllers
 
         UserRepository userRepository = new UserRepository();
 
-        [HttpGet("GetList")]
-        public IActionResult GetListByDynamic()
+        [HttpPost("GetList")]
+        public IActionResult GetListByDynamic([FromBody] Dynamic dynamic)
         {
             //get header from httpContextAccessor
-            var pagingHeader = _httpContextAccessor.HttpContext.Request.Headers["X-Paging-Header"];
-             var x = JsonConvert.DeserializeObject<Dynamic>(pagingHeader.FirstOrDefault());
+            //var pagingHeader = _httpContextAccessor.HttpContext.Request.Headers["X-Paging-Header"];
+            // var x = JsonConvert.DeserializeObject<Dynamic>(pagingHeader.FirstOrDefault());
 
-            var result = userRepository.GetListByDynamic(x, index: x.PageRequest.Page, size: x.PageRequest.PageSize);
+            var result = userRepository.GetListByDynamic(dynamic, index: dynamic.PageRequest.Page, size: dynamic.PageRequest.PageSize);
             return Ok(result);
         }
 
@@ -36,8 +36,8 @@ namespace DynamicAPI.Controllers
  {
 "sort": [
     {
-      "field": "firstName",
-      "dir": "asc"
+      "field": "id",
+      "dir": "desc"
     }
   ],
   "filter": {
@@ -48,13 +48,14 @@ namespace DynamicAPI.Controllers
     "filters": [
     {
   "field": "lastName",
-    "operator": "eq",
-    "value": "user"
+    "operator": "contains",
+    "value": "user",
+    "logic": "or"
     },
     {
   "field": "passwordHash",
     "operator": "contains",
-    "value": "a"
+    "value": "abcde"
     }
    ]
   },

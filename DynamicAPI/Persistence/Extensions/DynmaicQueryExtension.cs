@@ -37,7 +37,8 @@ public static class IQueryableDynamicFilterExtensions
         IList<Filter> filters = GetAllFilters(filter);
         string?[] values = filters.Select(f => f.Value).ToArray();
         string where = Transform(filter, filters);
-        queryable = queryable.Where(where, values);
+        string wherea = TransformDeneme(filter, filters);
+        queryable = queryable.Where(wherea, values);
 
         return queryable;
     }
@@ -96,5 +97,35 @@ public static class IQueryableDynamicFilterExtensions
                 $"{where} {filter.Logic} ({string.Join($" {filter.Logic} ", filter.Filters.Select(f => Transform(f, filters)).ToArray())})";
 
         return where.ToString();
+    }
+
+    public static string TransformDeneme(Filter filter, IList<Filter> filters)
+    {
+        string comparison = Operators[filter.Operator];
+        StringBuilder where = new();
+        foreach (var item in filters)
+        {
+            int index = filters.IndexOf(item);
+            if (!string.IsNullOrEmpty(item.Value))
+            {
+                if (item.Operator == "doesnotcontain")
+                    where.Append($"(!np({item.Field}).{comparison}(@{index}))");
+                else if (comparison == "StartsWith" ||
+                comparison == "EndsWith" ||
+                comparison == "Contains")
+                    where.Append($"(np({item.Field}).{comparison}(@{index}))");
+                else
+                    where.Append($"np({item.Field}) {comparison} @{index}");
+            }
+            else if (item.Operator == "isnull" || item.Operator == "isnotnull")
+            {
+                where.Append($"np({item.Field}) {comparison}");
+            }
+            if (item.Logic is not null && (filters.IndexOf(item) + 1) != filters.Count)
+                where.Append($" {item.Logic} ");
+        }
+        return where.ToString();
+
+
     }
 }
